@@ -61,6 +61,10 @@ tt {
 	font-family: "Inconsolata", monospace;
 	white-space: pre;
 }
+.t-invert {
+	background-color: #e8e6df;
+	color: #747369;
+}
 .root:before {
 	content: "#> ";
 	color: #f2777a;

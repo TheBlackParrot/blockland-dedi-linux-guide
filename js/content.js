@@ -81,9 +81,17 @@ function on_ready() {
 	var elements = [];
 
 	for(section_id in main_content.sections) {
-		var element = $('<div class="section"></div>');
-
 		var section = main_content.sections[section_id];
+
+		if(section.distro) {
+			if(section.distro != "all") {
+				if(section.distro.indexOf(active_distro) == -1) {
+					continue;
+				}
+			}
+		}
+
+		var element = $('<div class="section"></div>');
 
 		var header_data = section.header;
 
@@ -99,14 +107,17 @@ function on_ready() {
 		for(content_id in section.section) {
 			var content = section.section[content_id];
 
-			if(content.distro != "all") {
-				if(content.distro.indexOf(active_distro) == -1) {
-					continue;
+			if(content.distro) {
+				if(content.distro != "all") {
+					if(content.distro.indexOf(active_distro) == -1) {
+						continue;
+					}
 				}
 			}
 
 			var p = $("<p></p>");
-			p.html(content.content);
+			var content_parsed = content.content.replace("::CUR_URL::", window.location.href.replace(window.location.hash, ""));
+			p.html(content_parsed);
 
 			if(content.note) {
 				p.addClass("note");

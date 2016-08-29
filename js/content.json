@@ -1,7 +1,6 @@
 {
 	"available": [
-		"arch",
-		"ubuntu_16.04"
+		"arch"
 	],
 
 	"sections": [
@@ -166,6 +165,14 @@
 						"arch"
 					],
 
+					"content": "<strong><em>Please be aware that some VPS provided installations of Arch may be heavily out of date.</em></strong> These may require extra commands to get it back up to date.<br/>For this reason, I strongly urge you not to use Arch unless you know what you're doing or that you can find a \"last updated\" date for the Arch installation (Linode mentions theirs <a href=\"https://www.linode.com/distributions\">here</a>, as an example)."
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+
 					"content": "With Arch, there's just one step we need to take before we can update, and that's to update the keyring for package signing.<br/>It's not important within the scope of this guide to explain what package signing is, so just run the next couple of commands:"
 				},
 
@@ -188,6 +195,167 @@
 					],
 
 					"content": "<span class=\"terminal root\">pacman -Syu</span>"
+				}
+			]
+		},
+
+		{
+			"distro": [
+				"arch"
+			],
+
+			"header": {
+				"content": "Enabling multilib",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"content": "As Wine is not in a repository enabled by default, we need to enable this repository. <tt>[multilib]</tt> contains packages commonly used in 32-bit applications."
+				},
+
+				{
+					"content": "Modify <tt>/etc/pacman.conf</tt> and uncomment these lines:"
+				},
+
+				{
+					"content": "<span class=\"terminal root\">nano /etc/pacman.conf</span><span class=\"terminal t-invert\">#[multilib]\n#Include = /etc/pacman.d/mirrorlist</span>"
+				},
+
+				{
+					"note": true,
+					"content": "Uncommenting lines in this context means removing the hash/pound symbol (#) from the beginning of a line."
+				},
+
+				{
+					"content": "To quit <tt>nano</tt>, press <em>Ctrl-X</em>."
+				},
+
+				{
+					"content": "Now to refresh the package cache: <span class=\"terminal root\">pacman -Syy</span>"
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Installing packages for Blockland",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "Now that our VPS is set up and ready to go, we need to install some packages for Blockland. These include:<ul><li>wine</li><li>screen</li><li>xvfb <em>(X virtual framebuffer)</em></li>"
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+					"content": "<span class=\"terminal root\">pacman -S wine screen xorg-server-xvfb</span>"
+				},
+
+				{
+					"distro": "all",
+					"content": "Accept all default answers to prompts <em>(press Enter)</em> and let everything install. There might be a hefty amount of extra packages installed, this is intended."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Creating users/folders for the Blockland installation",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "To prevent any mishaps, we need to create a user for the Blockland server."
+				},
+
+				{
+					"distro": "all",
+					"content": "First, we make a folder for the server itself: <span class=\"terminal root\">mkdir -p /blockland/server</span>"
+				},
+
+
+				{
+					"distro": "all",
+					"note": true,
+					"content": "If you kind of know what you're doing here and questioning why it's <tt>/blockland/server</tt> and not just <tt>/blockland</tt>, this is due to the SFTP chroot jail we'll set up later in the guide. <tt>/blockland</tt> must be owned by root, but anything else within that folder doesn't have to be."
+				},
+
+				{
+					"distro": "all",
+					"content": "Next, we create the user <tt>blockland</tt> and <tt>blockland_files</tt>. Both will be in the same group, and our server files will be <strong>group read/writable</strong>.<br/><tt>blockland_files</tt> will have a manually set home folder.<span class=\"terminal root\">useradd -m -s /bin/nologin blockland</span><span class=\"terminal root\">useradd -g blockland -d /blockland -s /bin/nologin blockland_files"
+				},
+
+				{
+					"distro": "all",
+					"content": "Now we set the correct permissions and ownership on <tt>/blockland/server</tt>:</span><span class=\"terminal root\">chown -R blockland:blockland /blockland/server</span><span class=\"terminal root\">chmod -R 765 /blockland/server</span>"
+				},
+
+				{
+					"distro": "all",
+					"content": "Finally, we need to set passwords for both users, as we'll need to login to both for seperate reasons later on.<span class=\"terminal root\">passwd blockland</span><span class=\"terminal root\">passwd blockland_files</span>"
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Installing Blockland",
+				"type": "3",
+				"num_inc": "major"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "Of course, we can't run a Blockland server without Blockland itself."
+				},
+
+				{
+					"distro": "all",
+					"content": "I've provided a stripped down version of the game's files <a href=\"assets/bl-def.tar.gz\">here</a>. Some folders are missing from the base installation, they won't be needed to run a server.<br/>"
+				},
+
+				{
+					"distro": "all",
+					"note": true,
+					"content": "Zeblote's patch to r1984 to prevent the \"R6025 pure virtual function call\" crash is included, you don't need to worry about doing that yourself.<br/>If you still want to do it yourself, his patch can be found <a href=\"https://forum.blockland.us/index.php?topic=290045.msg8784434#msg8784434\">on page 3 of r1984's announcement page</a>."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Download and extract the base installation",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "To download the base installation, it's actually rather easy. Run this command to download it.<span class=\"terminal user\">wget ::CUR_URL::assets/bl-def.tar.gz</span>"
+				},
+
+				{
+					"distro": "all",
+					"content": "If you receive an error similar to this: <span class=\"terminal\">wget: command not found</span> ...you just need to install <tt>wget</tt>."
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+					"content": "<span class=\"terminal root\">pacman -S wget</span>"
 				}
 			]
 		}

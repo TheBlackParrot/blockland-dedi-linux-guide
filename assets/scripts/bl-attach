@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo -e "\n\n\n\n"
+echo "Use Ctrl-A-D to detach from your server console."
+echo -e "\n\n\n\n"
+sleep 3s
+screen -r "blockland-server$1"

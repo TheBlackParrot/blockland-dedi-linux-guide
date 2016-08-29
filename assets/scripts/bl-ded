@@ -1,0 +1,74 @@
+#!/bin/sh
+
+export WINEDLLOVERRIDES="mscoree,mshtml="
+
+## Blockland Dedicated Server Launcher
+## Written by Greek2me.
+
+# Define defaults.
+
+attach_screen=false
+game_mode="Custom"
+server_mode="dedicated"
+server_number=-1
+server_path="/blockland/server"
+
+# Parse arguments.
+
+OPTIND=1
+while getopts "ac:g:ln:p:" opt; do
+	case "$opt" in
+	a)	attach_screen=true
+		;;
+	c)	server_customArgs=$OPTARG
+		;;
+	g)	game_mode=$OPTARG
+		;;
+	l)	server_mode="dedicatedLAN"
+		;;
+	n)	server_number=$OPTARG
+		;;
+	p)	server_path=$OPTARG
+		;;
+	esac
+done
+shift $((OPTIND-1))
+[ "$1" = "--" ] && shift
+
+# Validate the server path.
+
+if [ ! -f "$server_path/Blockland.exe" ]; then
+	echo "No Blockland server was found at $server_path."
+	exit 1
+fi
+
+# Determine which server number this is.
+
+if [ "$server_number" -lt 0 ]; then
+	server_number=$(screen -list | grep -c blockland-server)
+fi
+
+# Launch the server.
+
+screen -dmS blockland-server$server_number xvfb-run wineconsole --backend=curses $server_path/Blockland.exe ptlaaxobimwroe -$server_mode -gamemode $game_mode $server_customArgs
+
+sleep 1
+
+# Check that the server exists.
+
+if screen -list | grep -q "blockland-server$server_number"; then
+	echo "Starting server $server_number"
+	echo " > Running game mode $game_mode"
+else
+	echo "Failed to start server."
+	exit 1
+fi
+
+# Attach to the server.
+
+if [ "$attach_screen" = true ]; then
+	screen -x blockland-server$server_number
+	if [ $? -gt 0 ]; then
+		echo "Failed to attach to server."
+	fi
+fi
