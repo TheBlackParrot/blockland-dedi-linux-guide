@@ -338,12 +338,20 @@
 				"content": "Download and extract the base installation",
 				"type": "4",
 				"num_inc": "minor"
+			}
+		},
+
+		{
+			"header": {
+				"content": "Downloading",
+				"type": "5",
+				"num_inc": "mminor"
 			},
 
 			"section": [
 				{
 					"distro": "all",
-					"content": "To download the base installation, it's actually rather easy. Run this command to download it.<span class=\"terminal user\">wget ::CUR_URL::assets/bl-def.tar.gz</span>"
+					"content": "To download the base installation, it's actually rather easy. Run this command to download it.<span class=\"terminal user\">wget -P /var/games ::CUR_URL::assets/bl-def.tar.gz</span>"
 				},
 
 				{
@@ -356,6 +364,34 @@
 						"arch"
 					],
 					"content": "<span class=\"terminal root\">pacman -S wget</span>"
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Extracting",
+				"type": "5",
+				"num_inc": "mminor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "The file we downloaded is a gz compressed tar archive. We should have a command already installed to decompress and extract it."
+				},
+
+				{
+					"content": "First, we change our current working directory, to the Blockland server's folder, <tt>/blockland/server</tt><span class=\"terminal user\">cd /blockland/server</span>"
+				},
+
+				{
+					"content": "We then extract the archive and fix permissions.<span class=\"terminal root\">tar -xzvf /var/games/bl-def.tar.gz</span><span class=\"terminal root\">chown -R blockland:blockland .</span><span class=\"terminal root\">chmod -R 765 .</span>"
+				},
+
+				{
+					"note": true,
+					"content": "<tt>.</tt> in the final 2 commands means the current working directory."
 				}
 			]
 		}
