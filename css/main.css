@@ -1,0 +1,164 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata|Oswald|Roboto|Slabo+27px';
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	color: #333;
+}
+
+h1 {
+	font-family: "Slabo 27px";
+	font-size: 48px;
+	font-weight: 700;
+	line-height: 36px;
+}
+
+h2 {
+	font-family: "Oswald";
+	font-size: 18pt;
+	color: #d3d0c8;
+	line-height: 48px;
+}
+
+h3, h4, h5 {
+	font-family: "Roboto";
+	font-weight: 700;
+	color: #333;
+	line-height: 32px;
+}
+
+h3 {
+	border-bottom: 1px solid #333;
+	margin-bottom: 3px;
+	font-size: 24px;
+}
+
+h4 {
+	border-bottom: 1px solid #d3d0c8;
+	margin-bottom: 3px;
+	font-size: 19px;
+}
+
+h5 {
+	font-size: 16px;
+}
+
+pre, tt {
+	font-family: "Inconsolata";
+}
+tt {
+	background-color: #e8e6df;
+	color: #515151;
+	padding: 2px;
+}
+.terminal {
+	background-color: #2d2d2d;
+	color: #f2f0ec;
+	padding: 8px 16px 8px 16px;
+	display: block;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	font-family: "Inconsolata", monospace;
+	white-space: pre;
+}
+.root:before {
+	content: "#> ";
+	color: #f2777a;
+}
+.user:before {
+	content: "$> ";
+	color: #9c9;
+}
+
+p {
+	line-height: 22px;
+	margin-bottom: 16px;
+}
+
+ul {
+    list-style: none;
+    list-style-type: square;
+    position: relative;
+    left: 40px;
+    line-height: 22px;
+    width: calc(100% - 40px);
+}
+
+a {
+	color: #69c;
+	text-decoration: none;
+}
+a:hover {
+	cursor: pointer;
+}
+
+em {
+	font-style: italic;
+}
+
+strong {
+	font-weight: 700;
+}
+
+hr {
+    width: calc(100% - 128px);
+    padding: 32px;
+    padding-bottom: 16px;
+    border: 0;
+    outline: 0;
+    border-top: 1px solid #333;
+}
+
+.note {
+	font-size: 10pt;
+	color: #747369;
+	line-height: 18px;
+	font-style: italic;
+}
+
+.wrapper {
+	width: calc(100% - 64px);
+	padding: 32px;
+	min-width: 400px;
+}
+
+.section {
+	margin-top: 16px;
+	margin-bottom: 32px;
+}
+
+.distro-select {
+	display: block;
+	text-align: center;
+}
+.distro-select-button {
+	width: 170px;
+	display: inline-block;
+	padding: 16px;
+	border: 1px solid #d3d0c8;
+	text-align: center;
+	margin-right: 16px;
+	margin-bottom: 16px;
+}
+.distro-select-button img {
+	width: 96px;
+	padding: 16px;
+	display: block;
+	margin: auto;
+}
+.distro-select-button[disable="1"] {
+	opacity: 0.33;
+	filter: grayscale(100%);
+	-webkit-filter: grayscale(100%);
+}
+.distro-select-button[disable="0"]:hover {
+	opacity: 1;
+	cursor: pointer;
+	border: 1px solid #333;
+}
+.distro-select-button[active="1"] {
+	opacity: 1;
+	background-color: #333;
+	color: #fff;
+	border: 1px solid #333;
+}

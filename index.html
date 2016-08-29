@@ -1,0 +1,114 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
+
+<body>
+	<div class="wrapper">
+		<h1>How to run a Blockland server in Linux</h1>
+		<h2>a.k.a. "what the heck is sudo smh where's blocknet"</h2>
+		<div class="section">
+			<h3 id="1">1. Introduction</h3>
+			<p>
+				So you want to host your own Blockland server <em>more than likely</em> on a <a href="https://en.wikipedia.org/wiki/Virtual_private_server">VPS</a>. A lot of people already do such a thing, and you probably can't even tell when playing on their servers.<br/>
+				It <em>can</em> be a bit of a hassle if you make it one, but it's actually pretty straightforward if you can read.
+			</p>
+			<p>
+				<strong>PLEASE PLEASE PLEASE NOTE THIS IS A **WORK IN PROGRESS**. The Linux distro you want to use may not be listed as a choice for this guide.</strong> I'm either working on a guide for it already if you've mentioned to me (TheBlackParrot) to add one, or not if you haven't. I may not add one depending on the distro (like older distro versions)
+			</p>
+		</div>
+
+		<div class="section">
+			<h4 id="1.1">1.1. VPS Providers</h3>
+			<p>
+				The first question that probably pops into your head is <em>"what exactly is a VPS?"</em>. It's essentially a virtual computer/server in the cloud, in general-public-easy-to-understand terms. It's not using physical hardware, but instead virtual hardware.<br/>
+				There are VPS providers upon VPS providers out there, feel free to choose any one you can find.
+			</p>
+		</div>
+
+		<div class="section">
+			<h5 id="1.1.1.">1.1.1. List of (recommended) VPS providers</h3>
+			<ul>
+				<li><a href="https://www.nfoservers.com/order-virtual-dedicated-server.php">NFOservers</a></li>
+				<li><a href="https://www.digitalocean.com/">DigitalOcean</a></li>
+				<li><a href="https://www.linode.com/">Linode</a></li>
+				<li><a href="https://www.ovh.com/us/vps/vps-ssd.xml">OVH</a></li>
+				<li><a href="https://www.1and1.com/dynamic-cloud-server#configure-server">1&1</a></li>
+			</ul>
+		</div>
+
+		<div class="section">
+			<h5 id="1.1.2.">1.1.2. VPS Specification Requirements</h3>
+			<p>Blockland servers do require a decent amount of power to run compared to your average cloud-hosted application. It is a game server, after all.</p>
+			<p>
+				To run a Blockland server at a decent speed, your VPS should have at least these:
+				<ul>
+					<li>2GB RAM</li>
+					<li>1 CPU core</li>
+					<li>10GB HDD space (SSD doesn't exactly matter here)</li>
+				</ul>
+			</p>
+			<p class="note">You can use virtual memory/swap if need be if you want to drop below 2GB of RAM, but your performance may take a hit during peak times (we'll set this up later in the guide).</p>
+			<p>
+				<strong>Do not choose any kind of managed hosting.</strong> This is not what you want, you want "full root access"; if the provider you chose doesn't mention such a thing, it's assumed you will have "full root access".
+			</p>
+			<p>If you have no idea on what Linux distribution to use, choose <strong>Ubuntu 16.04</strong> if it's available, <strong>Ubuntu 14.04</strong> otherwise.</p>
+			<p>Since Blockland is a game where players tend to use <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack">Denial of Service attacks</a> against one another, some services may threaten to cancel your service if these attacks persist. <em>(As far as I know)</em> NFO will not threaten you about it, considering they primarily host game servers and are able to deal with these attacks with ease.</p>
+		</div>
+
+		<!-- most of the page content is dynamically generated client-sidedly with json, sue me -_- -->
+
+		<hr/>
+
+		<div class="distro-select">
+			<div class="distro-select-button" distro="arch" disable="0" active="1">
+				<img src="assets/icons/arch.png"/>
+				Arch Linux
+			</div>
+			<div class="distro-select-button" distro="ubuntu_16.04" disable="1" active="0">
+				<img src="assets/icons/ubuntu.png"/>
+				Ubuntu 16.04 (LTS)
+			</div>
+			<div class="distro-select-button" distro="ubuntu_14.04" disable="1" active="0">
+				<img src="assets/icons/ubuntu.png"/>
+				Ubuntu 14.04 (LTS)
+			</div>
+			<div class="distro-select-button" distro="centos_7" disable="1" active="0">
+				<img src="assets/icons/centos.png"/>
+				CentOS 7.x
+			</div>
+			<div class="distro-select-button" distro="centos_6" disable="1" active="0">
+				<img src="assets/icons/centos.png"/>
+				CentOS 6.x
+			</div>
+			<div class="distro-select-button" distro="fedora_23" disable="1" active="0">
+				<img src="assets/icons/fedora.png"/>
+				Fedora 23
+			</div>
+			<div class="distro-select-button" distro="fedora_24" disable="1" active="0">
+				<img src="assets/icons/fedora.png"/>
+				Fedora 24
+			</div>
+			<div class="distro-select-button" distro="debian_9" disable="1" active="0">
+				<img src="assets/icons/debian.png"/>
+				Debian 9 (stretch / sid)
+			</div>
+			<div class="distro-select-button" distro="debian_8" disable="1" active="0">
+				<img src="assets/icons/debian.png"/>
+				Debian 8 (jessie)
+			</div>
+			<div class="distro-select-button" distro="debian_7" disable="1" active="0">
+				<img src="assets/icons/debian.png"/>
+				Debian 7 (wheezy)
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="js/content.js"></script>
+</body>
+
+</html>

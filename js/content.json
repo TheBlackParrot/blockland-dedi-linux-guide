@@ -1,0 +1,195 @@
+{
+	"available": [
+		"arch",
+		"ubuntu_16.04"
+	],
+
+	"sections": [
+		{
+			"header": {
+				"content": "Connecting To Your Server",
+				"type": "3",
+				"num_inc": "major"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "Your VPS provider should e-mail you with details on how to connect to your VPS. Some may have control panels that allow you to login through their site, but logging in through SSH will be required with this guide <em>if you want to access your files via an SFTP client.</em>"
+				},
+
+				{
+					"distro": "all",
+					"note": true,
+					"content": "If you would rather use an FTP server, feel free to set that up on your own. This guide covers SFTP, not FTP."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Installing SSH",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "If you have already logged in over SSH, then congratulations! You can skip this entire section."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Install SSH",
+				"type": "5",
+				"num_inc": "mminor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "To install SSH, run the following command as root:"
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+					"content": "<span class=\"terminal root\">pacman -S openssh</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04",
+						"ubuntu_14.04",
+						"ubuntu_12.04",
+						"ubuntu_10.04",
+						"debian_9",
+						"debian_8",
+						"debian_7",
+						"debian_6"
+					],
+					"content": "<span class=\"terminal root\">apt-get install --no-install-recommends openssh-server</span>"
+				},
+
+				{
+					"distro": "all",
+					"note": true,
+					"content": "Any commands denoted with '#>' at the beginning implies it needs to be run as root. Use <tt>su</tt> to login as root, or <tt>sudo</tt> to run a command as root without logging in as root."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Start SSH",
+				"type": "5",
+				"num_inc": "mminor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "To start the SSH service:"
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04",
+						"arch"
+					],
+					"content": "<span class=\"terminal root\">systemctl enable --now sshd</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04",
+						"arch"
+					],
+					"note": true,
+					"content": "<tt>systemctl enable --now</tt> combines <tt>systemctl enable</tt> and <tt>systemctl start</tt> into one command. Feel free to use these separately."
+				},
+
+				{
+					"distro": "all",
+					"content": "This will spawn an SSH daemon that will listen on port 22 of your VPS (unless configured otherwise, see <tt>/etc/ssh/sshd_config</tt>)."
+				},
+
+				{
+					"distro": "all",
+					"content": "Use <a href=\"http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html\">PuTTY</a> or any other similar program to login to your server."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Setting Up Your Server",
+				"type": "3",
+				"num_inc": "major"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "Now that we can connect to the server, we need to update our system and install packages needed to start Blockland."
+				}
+			]
+		},
+
+		{
+			"header": {
+				"content": "Updating Your Server",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"distro": "all",
+					"content": "Many VPS providers only update their base distro images every so often. It's best to update all software and libraries <em>(called <strong>\"packages\"</strong>)</em> pre-installed to their latest version in case of conflicts from newly installed software/libraries.<br/>The same thing applies to those of you using your own hardware to host. It's good practice to update immediately after you finish installing your Linux distro."
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+					"note": true,
+					"content": "Those of you using your own hardware don't need to do this step, everything you installed was already up-to-date."
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+
+					"content": "With Arch, there's just one step we need to take before we can update, and that's to update the keyring for package signing.<br/>It's not important within the scope of this guide to explain what package signing is, so just run the next couple of commands:"
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+
+					"content": "<span class=\"terminal root\">pacman -Syy</span><span class=\"terminal root\">pacman -S archlinux-keyring</span>"
+				},
+
+				{
+					"distro": "all",
+					"content": "To update your system:"
+				},
+
+				{
+					"distro": [
+						"arch"
+					],
+
+					"content": "<span class=\"terminal root\">pacman -Syu</span>"
+				}
+			]
+		}
+	]
+}
