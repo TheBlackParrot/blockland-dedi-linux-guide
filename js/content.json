@@ -7,6 +7,28 @@
 	"sections": [
 		{
 			"header": {
+				"content": "ATTENTION",
+				"type": "3",
+				"num_inc": "major"
+			},
+
+			"distro": [
+				"centos_7"
+			],
+
+			"section": [
+				{
+					"content": "DO NOT USE CENTOS 7 UNLESS YOU ARE COMFORTABLE WITH COMPILING WINE FROM SOURCE.<br/><a href=\"https://forum.winehq.org/viewtopic.php?f=8&t=23434\">https://forum.winehq.org/viewtopic.php?f=8&t=23434</a>"
+				},
+
+				{
+					"content": "If CentOS 6 is available, switch to that."
+				}
+			]
+		},
+
+		{
+			"header": {
 				"content": "Connecting To Your Server",
 				"type": "3",
 				"num_inc": "major"
@@ -63,6 +85,13 @@
 
 				{
 					"distro": [
+						"centos_7"
+					],
+					"content": "<span class=\"terminal root\">yum install openssh-server</span>"
+				},
+
+				{
+					"distro": [
 						"ubuntu_16.04",
 						"ubuntu_14.04",
 						"ubuntu_12.04",
@@ -98,7 +127,8 @@
 
 				{
 					"distro": [
-						"arch"
+						"arch",
+						"centos_7"
 					],
 					"content": "<span class=\"terminal root\">systemctl enable --now sshd</span>"
 				},
@@ -129,6 +159,7 @@
 				{
 					"distro": [
 						"ubuntu_16.04",
+						"centos_7",
 						"arch"
 					],
 					"note": true,
@@ -222,10 +253,19 @@
 
 				{
 					"distro": [
-						"ubuntu_14.04"
+						"ubuntu_16.04",
+						"ubuntu_14.04",
+						"ubuntu_12.04"
 					],
 
 					"content": "<span class=\"terminal root\">apt-get update</span><span class=\"terminal root\">apt-get upgrade</span>"
+				},
+
+				{
+					"distro": [
+						"centos_7"
+					],
+					"content": "<span class=\"terminal root\">yum update</span>"
 				}
 			]
 		},
@@ -328,6 +368,20 @@
 					"content": "<span class=\"terminal root\">apt-get install --no-install-recommends wine-devel screen xvfb</span>"
 				},
 
+				{
+					"distro": [
+						"centos_7"
+					],
+					"content": "<span class=\"terminal root\">yum install epel-release</span><span class=\"terminal root\">yum install wine screen xorg-x11-server-Xvfb</span>"
+				},
+
+				{
+					"distro": [
+						"centos_7"
+					],
+					"note": true,
+					"content": "You are installing the <strong>stable</strong> version of Wine here, unlike other distros in the guide. This will not affect anything."
+				},
 
 				{
 					"distro": "all",
@@ -372,7 +426,15 @@
 
 				{
 					"distro": "all",
-					"content": "Next, we create the user <tt>blockland</tt> and <tt>blockland_files</tt>. Both will be in the same group, and our server files will be <strong>group read/writable</strong>.<br/><tt>blockland_files</tt> will have a manually set home folder.<span class=\"terminal root\">useradd -m -s /bin/nologin blockland</span><span class=\"terminal root\">useradd -g blockland -d /blockland -s /bin/nologin blockland_files"
+					"content": "Next, we create the users <tt>blockland</tt> and <tt>blockland_files</tt>. Both will be in the same group, and our server files will be <strong>group read/writable</strong>.<br/><tt>blockland_files</tt> will have a manually set home folder.<span class=\"terminal root\">useradd -m -s /bin/nologin blockland</span><span class=\"terminal root\">useradd -g blockland -d /blockland -s /bin/nologin blockland_files"
+				},
+
+				{
+					"distro": [
+						"centos_7"
+					],
+					"note": true,
+					"content": "If you see warnings about the \"home directory already existing\", this is normal."
 				},
 
 				{
@@ -452,6 +514,13 @@
 						"ubuntu_14.04"
 					],
 					"content": "<span class=\"terminal root\">apt-get install --no-install-recommends wget</span>"
+				},
+
+				{
+					"distro": [
+						"centos_7"
+					],
+					"content": "<span class=\"terminal root\">yum install wget</span>"
 				}
 			]
 		},
@@ -486,6 +555,7 @@
 	],
 
 	"notes": [
-		"Ubuntu 12.04, 14.04, and 16.04 need a section dedicated to adding <tt>/opt/wine-devel/bin</tt> to their $PATH env variable. This is why I tell people Ubuntu is bad and you should feel bad for using it."
+		"Ubuntu 12.04, 14.04, and 16.04 need a section dedicated to adding <tt>/opt/wine-devel/bin</tt> to their $PATH env variable. This is why I tell people Ubuntu is bad and you should feel bad for using it.",
+		"CentOS 7's Wine package defaults to 64-bit. As Blockland is 32-bit, it'll just complain about the executable being a bad format. Add a section to fix this. CentOS 6 defaults to 32-bit."
 	]
 }
