@@ -1,6 +1,7 @@
 {
 	"available": [
-		"arch"
+		"arch",
+		"ubuntu_14.04"
 	],
 
 	"sections": [
@@ -97,10 +98,32 @@
 
 				{
 					"distro": [
-						"ubuntu_16.04",
 						"arch"
 					],
 					"content": "<span class=\"terminal root\">systemctl enable --now sshd</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04"
+					],
+					"content": "<span class=\"terminal root\">systemctl enable --now ssh</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_14.04",
+						"ubuntu_12.04"
+					],
+					"content": "<span class=\"terminal root\">service start ssh</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_14.04"
+					],
+					"note": true,
+					"content": "SSH here is configured to automatically start on boot, we don't need to enable it. (see <a href=\"http://upstart.ubuntu.com/cookbook/#runlevels\">runlevels</a> on <tt>/etc/init/ssh.conf</tt>)."
 				},
 
 				{
@@ -195,6 +218,45 @@
 					],
 
 					"content": "<span class=\"terminal root\">pacman -Syu</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_14.04"
+					],
+
+					"content": "<span class=\"terminal root\">apt-get update</span><span class=\"terminal root\">apt-get upgrade</span>"
+				}
+			]
+		},
+
+		{
+			"distro": [
+				"ubuntu_16.04",
+				"ubuntu_14.04"
+			],
+
+			"header": {
+				"content": "Adding the Wine PPA/repository",
+				"type": "4",
+				"num_inc": "minor"
+			},
+
+			"section": [
+				{
+					"content": "Wine is included in Ubuntu's default repositories, but is very out of date.<br/>Wine provides their own PPA/repository for Wine and is kept up-to-date."
+				},
+
+				{
+					"content": "First, we need to enable 32-bit package installation: <span class=\"terminal root\">dpkg --add-architecture i386</span>"
+				},
+
+				{
+					"content": "We then add the repository: <span class=\"terminal root\">add-apt-repository ppa:wine/wine-builds</span>"
+				},
+
+				{
+					"content": "And finally update the package listing: <span class=\"terminal root\">apt-get update</span>"
 				}
 			]
 		},
@@ -259,8 +321,26 @@
 				},
 
 				{
+					"distro": [
+						"ubuntu_16.04",
+						"ubuntu_14.04"
+					],
+					"content": "<span class=\"terminal root\">apt-get install --no-install-recommends wine-devel screen xvfb</span>"
+				},
+
+
+				{
 					"distro": "all",
-					"content": "Accept all default answers to prompts <em>(press Enter)</em> and let everything install. There might be a hefty amount of extra packages installed, this is intended."
+					"content": "Accept all default answers to prompts <em>(press Enter)</em> and let everything install. There might be a hefty amount of extra packages installed, this is normal."
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04",
+						"ubuntu_14.04",
+						"ubuntu_12.04"
+					],
+					"content": "One extra step is needed here, as the package installs to the wrong folder. We have to add <tt>/opt/wine-devel/bin</tt> to our <tt>$PATH</tt> environment variable.<br/>This tells Ubuntu where our executables are.<span class=\"terminal root\">echo \"export PATH=\\\"$PATH:/opt/wine-devel/bin\\\"\" > /etc/bash.bashrc</span>You may have to log out and back in for this to take effect."
 				}
 			]
 		},
@@ -364,6 +444,14 @@
 						"arch"
 					],
 					"content": "<span class=\"terminal root\">pacman -S wget</span>"
+				},
+
+				{
+					"distro": [
+						"ubuntu_16.04",
+						"ubuntu_14.04"
+					],
+					"content": "<span class=\"terminal root\">apt-get install --no-install-recommends wget</span>"
 				}
 			]
 		},
@@ -395,5 +483,9 @@
 				}
 			]
 		}
+	],
+
+	"notes": [
+		"Ubuntu 12.04, 14.04, and 16.04 need a section dedicated to adding <tt>/opt/wine-devel/bin</tt> to their $PATH env variable. This is why I tell people Ubuntu is bad and you should feel bad for using it."
 	]
 }

@@ -27,7 +27,7 @@ var nums = {
 	"mmmminor": 0
 };
 
-var active_distro = "arch";
+var active_distro = "ubuntu_14.04";
 
 function inc_num(type) {
 	switch(type) {
